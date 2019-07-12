@@ -1,0 +1,28 @@
+/* pages/home/home.wxss */
+.board {
+    color: #c7cbe2;
+    font-weight: bold;
+    font-size: small;
+
+}
+.header {
+    font-size: large;
+    color: #59518d;
+}
+
+.calendar {
+    background-color:white;  /*背景色为白色*/
+    padding-top: 10px;       /*上内边距为 10px*/
+    border-radius: 15px;     /*添加边框圆角*/
+}
+
+.InfoBtn {
+    position: fixed;
+    top: 60%;
+    left: 275rpx;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(red, #ff4d00, #f90, #ffe600, #cf0, #80ff00, #3f0, #00ff1a, #0f6, #c0f, #ff00e6, #f09, #ff004d, red);
+    border-radius: 50%;
+    font-size: 32rpx;
+}

@@ -1,0 +1,36 @@
+<!--index.wxml-->
+<view class="container">
+
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    ></button>
+  </view>
+
+      <view class='nickname-box'>
+      <navigator url="../works/index" open-type="navigate" class="userinfo-nickname">
+      <text>{{nickName}}</text>
+    </navigator>
+    </view>
+
+    <!-- 提交作业 -->
+  <view class="uploader">
+    <navigator url="../works/index" open-type="navigate" class="uploader-text">
+      <text>提交作业</text>
+    </navigator>
+  </view>
+
+  <view class='line'></view>
+      <!-- 提交作业 -->
+  <view class="down-box">
+    <navigator url="../works/index" open-type="navigate" class="uploader-text">
+      <text>提交作业</text>
+    </navigator>
+  </view>
+
+
+</view>

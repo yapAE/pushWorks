@@ -1,0 +1,31 @@
+<view class="page">
+  <view class="weui-images">
+    <view class="weui-uploader">
+      <view class="weui-uploader__hd">
+        <view class="weui-uploader__title">作业拍照</view>
+        <view class="weui-uploader__info">{{files.length}}/9</view>
+      </view>
+      <view class="weui-uploader__bd">
+        <view class="weui-uploader__files" id="uploaderFiles">
+          <block wx:for="{{files}}" wx:key="*this">
+            <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+              <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+            </view>
+          </block>
+
+
+        </view>
+        <view class="weui-uploader__input-box">
+          <view class="weui-uploader__input" bindtap="chooseImage"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+      <view class="weui-cell__bd">
+        <!-- 多行输入框 -->
+        <textarea class="weui-textarea" placeholder="请简短输入作业说明" maxlength="120" bindinput='bindInputText' name = 'content'/>
+      </view>
+
+<!-- 提交表单按钮  -->
+<button class="weui-btn" type="primary" bindtap="submit">提交</button>
+</view>
