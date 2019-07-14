@@ -1,12 +1,12 @@
 const db = wx.cloud.database()
 Page({
   data: {
-    files: [],
     text: '',
     images: [],
-    baseData: []
+    baseData: [],
+    avatarUrl: wx.getStorageSync('avatarUrl'),
+    nickName: wx.getStorageSync('nickName')
   },
-
 
   submit:function(){
     wx.showLoading({
@@ -14,8 +14,8 @@ Page({
     })
     const promiseArr = []
 
-    for (let i = 0; i< this.data.files.length; i++){
-      let filePath = this.data.files[i]
+    for (let i = 0; i< this.data.images.length; i++){
+      let filePath = this.data.images[i]
       let siffix = /\.[^\.]+$/.exec(filePath)[0];//获取文件扩展名
 
       promiseArr.push(new Promise((reslove,reject)=>{
@@ -38,16 +38,26 @@ Page({
       }))
     }
 //以日期为Key
-let now = new Date();
-let yearMonth = now.getFullYear() + now.getMonth();
-let day = now.getDay();
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (day < 10) {
+      day = "0" + day;
+    }
+    var nowDate = year + "-" + month + "-" + day; 
 
     Promise.all(promiseArr).then(res=>{
       db.collection('works').add({
         data:{
           images: this.data.images,
           text: this.data.text,
-          today:  now
+          today:  nowDate,
+          nickName: this.data.nickName,
+          avatarUrl: this.data.avatarUrl,
           //异步上传，结束才赋值
         }
       })
@@ -56,6 +66,13 @@ let day = now.getDay();
         wx.hideLoading()
         wx.showToast({
           title: '提交成功',
+        })
+        this.setData({
+          images:[],
+          text: ''
+        })
+        wx.navigateTo({
+          url: '../list/list',
         })
       })
       .catch(error =>{
@@ -72,7 +89,7 @@ let day = now.getDay();
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
+          images: that.data.images.concat(res.tempFilePaths)
         });
       }
     })
@@ -80,7 +97,16 @@ let day = now.getDay();
   previewImage(e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
+      urls: this.data.images // 需要预览的图片http链接列表
+    })
+  },
+
+  deleteImg(e){
+    let images = this.data.images;
+    let index = e.currentTarget.dataset.index;
+    images.splice(index,1);
+    this.setData({
+      images:images
     })
   },
 

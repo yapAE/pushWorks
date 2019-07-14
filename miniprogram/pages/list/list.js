@@ -1,18 +1,63 @@
 // pages/list/list.js
+const db = wx.cloud.database()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+      today: true,
+      openId: wx.getStorageInfoSync('avatar'),
+      myself: false
   },
 
+  isToday(e){
+    this.today = e.detail.value
+    this.setData({
+      today: e.detail.value
+    })
+  },
+ 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
 
+    //以日期为Key
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (day < 10) {
+      day = "0" + day;
+    }
+    var nowDate = year + "-" + month + "-" + day; 
+
+    if(this.today){
+      var data = db.collection('works').where({
+         date: nowDate
+       })
+    }else{
+      var data = db.collection('works')
+    }
+     if(this.myself){
+      data = data.where({
+        _openId: openId
+      })
+     }
+
+     data.get().then(res => {
+       console.log(res.data)
+        this.setData({
+          items: res.data
+        })    
+
+     })
+     
+      
   },
 
   /**

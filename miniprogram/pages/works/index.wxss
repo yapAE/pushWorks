@@ -33,13 +33,13 @@
   overflow: hidden;
 }
 
-.weui-uploader__file {
+.weui-uploader__file, .del_img {
   float: left;
   margin-right: 9px;
   margin-bottom: 9px;
 }
 
-.weui-uploader__img {
+.weui-uploader__img,del_img{
   display: block;
   width: 79px;
   height: 79px;

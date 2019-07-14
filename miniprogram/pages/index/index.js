@@ -28,20 +28,37 @@ Page({
           wx.getUserInfo({
             success: res => {
             console.log(res.userInfo)
+
+            wx.setStorage({
+              key: 'openid',
+              data: this.onGetOpenid(),
+              key: 'avatarUrl',
+              data: res.userInfo.avatarUrl,
+              key: 'nickName',
+              data: res.userInfo.nickName,
+            })
+
+            console.log(wx.getStorageSync('nickName'))
             //查询用户是否存在用户表里
             db.collection('users').where({
-              avatar:res.userInfo.avatarUrl
+              _openid: wx.getStorageSync('openid')
             }).get().then(result => {
               
               console.log(result.data.length)
               //不存在则添加
               if(result.data.length == 0){
-                db.collection('users').add({
+              var user = db.collection('users').add({
                   data: {
                     avatar: res.userInfo.avatarUrl,
                     nickName: res.userInfo.nickName,
                     gender: res.userInfo.gender,
                   }
+                }).then(add =>{
+                  console.log(add)
+                wx.setStorage({
+                  key: 'userId',
+                  data: add._id,
+                })
                 })
               }
             })
@@ -74,17 +91,11 @@ Page({
       name: 'login',
       data: {},
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
+        console.log(res.result.openid)
         app.globalData.openid = res.result.openid
-        wx.navigateTo({
-          url: '../userConsole/userConsole',
-        })
       },
       fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
+        console.error('failed', err)
       }
     })
   },
