@@ -10,3 +10,10 @@
 
 - [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
 
+提交代码遇到『Everything up-to-date』
+
+git checkout -b new
+git add .
+git commit -m 'something'
+git checkout master
+git push -u origin master
