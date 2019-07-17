@@ -1,36 +1,54 @@
-<!--index.wxml-->
-<view class="container">
-
-  <!-- 用户 openid -->
-  <view class="userinfo">
+<scroll-view scroll-y class="scrollPage">
+  <view class="top_box">
     <button 
       open-type="getUserInfo" 
       bindgetuserinfo="onGetUserInfo"
       class="userinfo-avatar"
       style="background-image: url({{avatarUrl}})"
     ></button>
+    <view class='nickname'>
+    <text>{{username}}</text>
+    </view>
+      
   </view>
 
-      <view class='nickname-box'>
-      <navigator url="../works/index" open-type="navigate" class="userinfo-nickname">
-      <text>{{nickName}}</text>
-    </navigator>
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+
+    <view class="cu-item arrow">
+      <navigator class="content" url="../list/list" hover-class="none">
+        <text class="cuIcon-formfill text-green"></text>
+        <text class="text-grey">我的作业</text>
+      </navigator>
+    </view>
+        <view class="cu-item arrow">
+      <navigator class="content" url="../works/works" hover-class="none">
+        <text class="cuIcon-writefill text-cyan"></text>
+        <text class="text-grey">提交作业</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url='../top/top' hover-class="none">
+        <text class="cuIcon-appreciatefill text-red"></text>
+        <text class="text-grey">今日最佳</text>
+      </navigator>
+    </view>
+  </view>
+
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/test/list" hover-class="none">
+        <text class="cuIcon-creativefill text-orange"></text>
+        <text class="text-grey">加入班级</text>
+      </navigator>
     </view>
 
-    <!-- list -->
-  <view class="uploader">
-    <navigator url="../list/list" open-type="navigate" class="uploader-text">
-      <text>chakan</text>
-    </navigator>
+    <view class="cu-item arrow">
+      <button class="cu-btn content" open-type="feedback">
+        <text class="cuIcon-writefill text-cyan"></text>
+        <text class="text-grey">意见反馈</text>
+      </button>
+    </view>
   </view>
-
-  <view class='line'></view>
-      <!-- 提交作业 -->
-  <view class="down-box">
-    <navigator url="../works/index" open-type="navigate" class="uploader-text">
-      <text>提交作业</text>
-    </navigator>
-  </view>
-
-
-</view>
+  <view class="cu-tabbar-height"></view>
+</scroll-view>

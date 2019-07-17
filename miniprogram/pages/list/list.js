@@ -6,13 +6,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-      today: true,
+      today: false,
       openId: wx.getStorageInfoSync('avatar'),
       myself: false
   },
 
   isToday(e){
-    this.today = e.detail.value
+    this.data.today = e.detail.value
     this.setData({
       today: e.detail.value
     })

@@ -3,7 +3,7 @@
     <view class="weui-uploader">
       <view class="weui-uploader__hd">
         <view class="weui-uploader__title">作业拍照</view>
-        <view class="weui-uploader__info">{{files.length}}/9</view>
+        <view class="weui-uploader__info">{{images.length}}/9</view>
       </view>
       <view class="weui-uploader__bd">
         <view class="weui-uploader__files" id="uploaderFiles">

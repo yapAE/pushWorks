@@ -1,17 +1,18 @@
 const db = wx.cloud.database()
+const app = getApp()
+//const dateFormat = require('../../util/date.js')
 Page({
   data: {
     text: '',
     images: [],
-    baseData: [],
-    avatarUrl: wx.getStorageSync('avatarUrl'),
-    nickName: wx.getStorageSync('nickName')
+    files: [],
   },
 
   submit:function(){
     wx.showLoading({
       title: '提交中',
     })
+    //定义一个上传数组
     const promiseArr = []
 
     for (let i = 0; i< this.data.images.length; i++){
@@ -25,11 +26,12 @@ Page({
           filePath: filePath, //文件路径
         }).then(res =>{
           //get Resource Id
+          console.log(this.data.images)
           console.log(res.fileID)
+          //将返回的数据计入files[]
+          this.data.files = this.data.files.concat(res.fileID)
+          console.log(this.data.files)
 
-          this.setData({
-            images: this.data.images.concat(res.fileID)
-          })
           reslove()
         }) .catch(error => {
           console.log(error)
@@ -37,27 +39,18 @@ Page({
 
       }))
     }
-//以日期为Key
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    if (month < 10) {
-      month = "0" + month;
-    }
-    if (day < 10) {
-      day = "0" + day;
-    }
-    var nowDate = year + "-" + month + "-" + day; 
+//时间
+    var now = new Date();
 
     Promise.all(promiseArr).then(res=>{
+      console.log(this.data.images)
       db.collection('works').add({
         data:{
-          images: this.data.images,
+          images: this.data.files,
           text: this.data.text,
-          today:  nowDate,
-          nickName: this.data.nickName,
-          avatarUrl: this.data.avatarUrl,
+          today: now,
+          nickName: app.globalData.nickName,
+          avatarUrl: app.globalData.avatarUrl,
           //异步上传，结束才赋值
         }
       })
@@ -94,13 +87,14 @@ Page({
       }
     })
   },
+  //预览上传图片
   previewImage(e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.images // 需要预览的图片http链接列表
     })
   },
-
+  //删除选中预览图片
   deleteImg(e){
     let images = this.data.images;
     let index = e.currentTarget.dataset.index;
