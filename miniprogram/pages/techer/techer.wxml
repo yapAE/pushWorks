@@ -21,12 +21,7 @@
 		<input placeholder="请输入学校名称" bindinput='inputSchoolName'></input>
 	</view>
 
-  	<view class="cu-form-group">
-		<view class="title">班级名称</view>
-		<input placeholder="请输入班级名称" bindinput='inputClassName'></input>
-	</view>
-
-	<view class="cu-form-group margin-top">
+	<view class="cu-form-group">
 		<view class="title">入学年度</view>
 		<picker bindchange="EnrollmentYearChange" value="{{yearIndex}}" range="{{enrollment}}">
 			<view class="picker">
@@ -35,7 +30,7 @@
 		</picker>
 	</view>
 
-  	<view class="cu-form-group margin-top">
+  	<view class="cu-form-group">
 		<view class="title">班级编号</view>
 		<picker bindchange="ClassNumberChange" value="{{index}}" range="{{classNumbers}}">
 			<view class="picker">
@@ -44,6 +39,11 @@
 		</picker>
 	</view>
 
-<view class="box cu-bar btn-group"role=""aria-label="">
+    <view class="cu-form-group">
+		<view class="title">班级别名</view>
+		<input placeholder="请输入班级别名（可选）" bindinput='inputClassName'></input>
+	</view>
+
+<view class="box cu-bar btn-group la"role=""aria-label="">
 <button class="cu-btn bg-green shadow-blur round" role="button" bindtap='addClass' aria-disabled="false">新建班级</button>
 </view>
