@@ -28,9 +28,18 @@
 
 	<view class="cu-form-group margin-top">
 		<view class="title">入学年度</view>
-		<picker bindchange="EnrollmentYearChange" value="{{index}}" range="{{enrollment}}">
+		<picker bindchange="EnrollmentYearChange" value="{{yearIndex}}" range="{{enrollment}}">
 			<view class="picker">
-				{{index?enrollment[index]:'请选择班级入学年度'}}
+				{{yearIndex?enrollment[yearIndex]:'请选择班级入学年度'}}
+			</view>
+		</picker>
+	</view>
+
+  	<view class="cu-form-group margin-top">
+		<view class="title">班级编号</view>
+		<picker bindchange="ClassNumberChange" value="{{index}}" range="{{classNumbers}}">
+			<view class="picker">
+				{{index?classNumbers[index]:'请选择班级编号'}}
 			</view>
 		</picker>
 	</view>

@@ -125,12 +125,18 @@ Page({
   //年级选择
   ClassNumberChange(e){
     this.data.className = this.data.classNumbers[e.detail.value]
+    this.setData({
+      index: e.detail.value
+    })
   },
 
   //入学和班级编号组合
   EnrollmentYearChange(e){
     console.log(this.data.enrollment[e.detail.value])
     this.data.year = this.data.enrollment[e.detail.value]
+    this.setData({
+      yearIndex: e.detail.value
+    })
   }
 
 })
