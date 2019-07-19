@@ -1,3 +1,4 @@
+<wxs src="../../util/format.wxs" module="util" />
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
     <text class='cuIcon-titles text-orange '></text> 只看今天
@@ -10,8 +11,8 @@
 <view class="cu-card case">
   <view class="cu-item shadow">
     <view class="image">
-      <image src="{{item.images[0]}}" mode="widthFix"></image>
-      <view class="cu-tag bg-blue">史诗</view>
+      <image src="{{item.images[0]}}" mode="aspectFill" data-src="{{item.images}}" bindtap="previewImage"></image>
+      <view class="cu-tag bg-blue">优秀</view>
       <view class="cu-bar bg-shadeBottom">
         <text class="text-cut">{{item.text}}</text>
       </view>
@@ -22,7 +23,7 @@
         <view class="content flex-sub">
           <view class="text-grey">{{item.nickName}}</view>
           <view class="text-gray text-sm flex justify-between">
-            {{item.today}}
+            {{util.timeFmt(item.today)}}
           </view>
         </view>
       </view>

@@ -1,4 +1,0 @@
-<!--pages/home/home.wxml-->
-<calendar calendar-style="calendar" header-style="header" board-style="board" next="{{false}}" prev="{{false}}" show-more-days="{{true}}" days-color="{{days_style}}" />
-
-<button open-type='getUserInfo' bindgetuserinfo='getUserInfoHandler' class='InfoBtn' wx:if="{{info==false}}"></button>

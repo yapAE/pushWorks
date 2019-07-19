@@ -1,7 +1,9 @@
 <!--pages/top/top.wxml-->
+<wxs src="../../util/format.wxs" module="util" />
+
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
-    <text class='cuIcon-titles text-orange '></text> 获赞最多
+    <text class='cuIcon-titles text-orange '></text> {{zan?'获赞最多':'最早提交'}}
   </view>
   <view class='action'>
     <switch class='sm' checked='{{zan}}' bindchange='isZan'></switch>
@@ -9,20 +11,20 @@
 </view>
 
 <view class="cu-list menu-avatar">
-    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{4}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
-      <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big2100{{index+1}}.jpg);"></view>
+    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{list}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+      <view class="cu-avatar round lg" data-src="{{item.images}}" bindtap='previewImage' style="background-image:url({{item.avatarUrl}});"></view>
       <view class="content">
-        <view class="text-grey">文晓港</view>
+        <view class="text-grey">{{item.nickName}}</view>
         <view class="text-gray text-sm">
-          <text class="cuIcon-infofill text-red"></text> 消息未送达</view>
+          <text class="cuIcon-evaluate_fill text-red"></text> {{util.descFmt(item.text)}}</view>
       </view>
       <view class="action">
-        <view class="text-grey text-xs">22:20</view>
-        <view class="cu-tag round bg-grey sm">5</view>
+        <view class="text-grey text-xs">{{util.timeFmt(item.today)}}</view>
+        <view class="cu-tag round bg-grey sm">{{item.images.length}}</view>
       </view>
       <view class="move">
-        <view class="bg-grey">置顶</view>
-        <view class="bg-red">删除</view>
+        <view class="bg-grey">点赞</view>
+        <view class="bg-red">优秀</view>
       </view>
     </view>
   </view>

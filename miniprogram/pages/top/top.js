@@ -7,18 +7,35 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    zan: false,
+    images: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const topList = db.collection('works').where({
-      format
+     db.collection('works').get().then(res =>{
+       this.data.images = res.data
+       console.log(this.data.images)
+
+       this.setData({
+         list: res.data
+       })
     })
   },
 
+  isZan(e){
+    this.data.zan
+  },
+  //预览作业图片
+  previewImage(e) {
+    console.log(e)
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: e.target.dataset.src // 需要预览的图片http链接列表
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

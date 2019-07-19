@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
   const appid = event.userInfo.appId;
   const encryptedData = event.encryptedData;
   const iv = event.iv;
-  const secret = '填你小程序的secret'
+  const secret = '5e53199ee32a9bda8f9d70a437858c4e'
 
   const url = {
     url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code'

@@ -1,5 +1,7 @@
 // pages/list/list.js
 const db = wx.cloud.database()
+const app = getApp()
+const util = require('../../util/date.js')
 Page({
 
   /**
@@ -7,7 +9,7 @@ Page({
    */
   data: {
       today: false,
-      openId: wx.getStorageInfoSync('avatar'),
+      openId: app.globalData.openid,
       myself: false
   },
 
@@ -18,36 +20,30 @@ Page({
     })
   },
  
+  //预览作业图片
+  previewImage(e) {
+    console.log(e)
+    wx.previewImage({
+
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: e.target.dataset.src // 需要预览的图片http链接列表
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
 
     //以日期为Key
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    if (month < 10) {
-      month = "0" + month;
-    }
-    if (day < 10) {
-      day = "0" + day;
-    }
-    var nowDate = year + "-" + month + "-" + day; 
-
     if(this.today){
       var data = db.collection('works').where({
          date: nowDate
        })
     }else{
-      var data = db.collection('works')
+      var data = db.collection('works').where({
+        _openid: app.globalData.openid
+      }).orderBy('today','desc')
     }
-     if(this.myself){
-      data = data.where({
-        _openId: openId
-      })
-     }
 
      data.get().then(res => {
        console.log(res.data)
@@ -55,8 +51,7 @@ Page({
           items: res.data
         })    
 
-     })
-     
+     })   
       
   },
 

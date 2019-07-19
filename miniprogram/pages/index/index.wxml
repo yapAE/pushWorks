@@ -8,8 +8,25 @@
     ></button>
     <view class='nickname'>
     <text>{{username}}</text>
+    </view>     
+  </view>
+
+   <view class="padding flex text-center text-grey bg-white shadow-warp">
+    <view class="flex flex-sub flex-direction solid-right">
+      <view class="text-xxl text-orange">{{visitTotal}}</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-choiceness text-yellow"></text> choiceness</view>
     </view>
-      
+    <view class="flex flex-sub flex-direction solid-right">
+      <view class="text-xxl text-blue">{{starCount}}</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-appreciatefill text-red"></text> appreciatefill</view>
+    </view>
+    <view class="flex flex-sub flex-direction">
+      <view class="text-xxl text-green">{{forksCount}}</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-selection text-blue"></text> selection</view>
+    </view>
   </view>
 
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
@@ -37,9 +54,16 @@
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
 
     <view class="cu-item arrow">
-      <navigator class="content" url="/pages/about/test/list" hover-class="none">
+      <button class="cu-btn content" open-type="share">
         <text class="cuIcon-creativefill text-orange"></text>
-        <text class="text-grey">加入班级</text>
+        <text class="text-grey">邀请同学</text>
+      </button>
+    </view>
+
+    <view class="cu-item arrow">
+      <navigator class="content" url='../techer/techer' hover-class="none">
+        <text class="cuIcon-appreciatefill text-red"></text>
+        <text class="text-grey">我是老师</text>
       </navigator>
     </view>
 

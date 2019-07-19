@@ -40,7 +40,7 @@ Page({
       }))
     }
 //时间
-    var now = new Date();
+    var now = new Date().getTime();
 
     Promise.all(promiseArr).then(res=>{
       console.log(this.data.images)
