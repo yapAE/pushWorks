@@ -5,6 +5,7 @@
     "pages/works/works",
     "pages/top/top",
     "pages/class/class",
+    "pages/member/member",
     "pages/techer/techer",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",

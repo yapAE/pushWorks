@@ -19,6 +19,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+  //已有班级的数据查询
+    this.classData()
+
     let currentYear = new Date().getFullYear()
     let selectYears = [],i,j
     let classNumbers = [],u,v
@@ -37,6 +40,17 @@ Page({
     this.data.enrollment = selectYears
     this.data.classNumber = classNumbers
     console.log(this.data.enrollment)
+  },
+//获取班级数据
+  classData(){
+    db.collection('classes').where({
+      _openid: app.globalData._openid
+    }).get().then(res => {
+      console.log(res.data)
+      this.setData({
+        classes: res.data
+      })
+    })
   },
 
   /**
@@ -96,23 +110,30 @@ Page({
       data:{
         region: this.data.region,
         shool: this.data.schoolName,
+        enrollmentYear: this.data.year,
         class: this.data.className,
+        classAlisa: this.data.classAlisa
       }
-    }).then(res =>{
-      console.log(res)
+    }).then(re =>{
+      this.classData()
       wx.hideLoading()
       wx.showToast({
         title: '提交成功',
       })
     })
   },
+
+  onPullDownRefresh() {
+    wx.startPullDownRefresh()
+   // wx.stopPullDownRefresh()
+  },
   //输入学校名
   inputSchoolName(e){
     this.data.schoolName = e.detail.value
   },
 
-  //输入班级名
-  inputClassName(e){
+  //输入班级别名
+  inputClassAlias(e){
     this.data.className = e.detail.value
   },
 
@@ -124,7 +145,7 @@ Page({
   },
   //年级选择
   ClassNumberChange(e){
-    this.data.className = this.data.classNumbers[e.detail.value]
+    this.data.className = this.data.classNumbers[e.detail.value].substr(0,1)
     this.setData({
       index: e.detail.value
     })
@@ -132,8 +153,7 @@ Page({
 
   //入学和班级编号组合
   EnrollmentYearChange(e){
-    console.log(this.data.enrollment[e.detail.value])
-    this.data.year = this.data.enrollment[e.detail.value]
+    this.data.year = this.data.enrollment[e.detail.value].substr(0,4)
     this.setData({
       yearIndex: e.detail.value
     })

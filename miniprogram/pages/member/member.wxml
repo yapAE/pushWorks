@@ -1,0 +1,40 @@
+<!--pages/member/member.wxml-->
+<wxs src="../../util/format.wxs" module="util" />
+
+<view class="cu-bar bg-white solid-bottom">
+  <view class='action'>
+    <text class='cuIcon-titles text-orange '></text> 班级成员
+  </view>
+</view>
+
+
+<scroll-view scroll-x class="bg-green nav text-center">
+  <view class="cu-item {{0==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="0">
+    <text class="cuIcon-camerafill"></text> 学生
+  </view>
+  <view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1">
+    <text class="cuIcon-upstagefill"></text> 教师
+  </view>
+  <view class="cu-item {{2==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="2">
+    <text class="cuIcon-clothesfill"></text> 家长
+  </view>
+</scroll-view>
+
+<view class="cu-list menu-avatar">
+    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{list}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+      <view class="cu-avatar round lg" data-src="{{item.images}}" bindtap='previewImage' style="background-image:url({{item.avatarUrl}});"></view>
+      <view class="content">
+        <view class="text-grey">{{item.nickName}}</view>
+        <view class="text-gray text-sm">
+          <text class="cuIcon-evaluate_fill text-red"></text> {{util.descFmt(item.text)}}</view>
+      </view>
+      <view class="action">
+        <view class="text-grey text-xs">{{util.timeFmt(item.today)}}</view>
+        <view class="cu-tag round bg-grey sm">{{item.images.length}}</view>
+      </view>
+      <view class="move">
+        <view class="bg-grey">点赞</view>
+        <view class="bg-red">优秀</view>
+      </view>
+    </view>
+  </view>

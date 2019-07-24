@@ -13,19 +13,19 @@
 
    <view class="padding flex text-center text-grey bg-white shadow-warp">
     <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-orange">{{visitTotal}}</view>
+      <view class="text-xxl text-orange">{{pointsCount}}</view>
       <view class="margin-top-sm">
-        <text class="cuIcon-choiceness text-yellow"></text> choiceness</view>
+        <text class="cuIcon-choiceness text-yellow"></text> Points</view>
     </view>
     <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-blue">{{starCount}}</view>
+      <view class="text-xxl text-blue">{{zanCount}}</view>
       <view class="margin-top-sm">
-        <text class="cuIcon-appreciatefill text-red"></text> appreciatefill</view>
+        <text class="cuIcon-appreciatefill text-red"></text> Zan</view>
     </view>
     <view class="flex flex-sub flex-direction">
-      <view class="text-xxl text-green">{{forksCount}}</view>
+      <view class="text-xxl text-green">{{badgeCount}}</view>
       <view class="margin-top-sm">
-        <text class="cuIcon-selection text-blue"></text> selection</view>
+        <text class="cuIcon-selection text-blue"></text> Badge</view>
     </view>
   </view>
 

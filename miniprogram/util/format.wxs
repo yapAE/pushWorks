@@ -35,7 +35,23 @@ var timeFmt = function (val) {
   }
 }
 
+//ClassName Format
+var classFmt = function (classNumber,enrollmentYear){
+   var currentYear = getDate().getFullYear()
+   var currentMonth = getDate().getMonth() + 1
+   var difference = currentYear - enrollmentYear
+
+       if (currentMonth > 7 ){
+         difference = difference + 1
+       }
+   
+
+   return difference + "年" + classNumber + "班" + "(" + enrollmentYear + "年入学)"
+
+}
+
 module.exports = {
   descFmt: descFmt,
   timeFmt: timeFmt,
+  classFmt: classFmt,
 }

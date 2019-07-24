@@ -1,4 +1,4 @@
-// pages/class/class.js
+// pages/member/member.js
 const app = getApp()
 const db = wx.cloud.database()
 Page({
@@ -7,33 +7,33 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cid: '',
+    TabCur: 0, //0代表学生，1代表教师，2代表家长
+  },
+//Tab选择效果展示
+  tabSelect(e) {
+    this.data.TabCur = e.currentTarget.dataset.id
+    this.getMembers(e.currentTarget.dataset.id)
+    this.setData({
+      TabCur: e.currentTarget.dataset.id,
+      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
+    })
   },
 
+  //获取成员
+  getMembers(num){
+    db.collection('members').where({
+      relationship:num
+    }).get().then(res =>{
+      this.setData({
+        list:res.data
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this
-    wx.showShareMenu({
-      //设为true，获取ShareTicket
-      withShareTicket: true
-    })
-    this.setData({
-      cid: options.cid,
-    })
-    
-    console.log(this.data.cid)
-  },
-
-  clickReload: function () {
-    let that = this
-    app.getShareTiket(function (globalData) {
-      console.log('clickReload---globalData-->' + JSON.stringify(globalData))
-      that.setData({
-        openGid: globalData.openGid
-      })
-    })
+    this.getMembers(0)
   },
 
   /**
@@ -82,16 +82,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return {
-      title: '邀请您加入班级',
-      desc:  '分享页面的内容',
-      path:  '/pages/class/class' // 路径，传递参数到指定页面,路径 /pages开始
-    }
-  },
-//地区选择
-  RegionChange: function (e) {
-    this.setData({
-      region: e.detail.value
-    })
-  },
+
+  }
 })

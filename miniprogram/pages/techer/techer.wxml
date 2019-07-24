@@ -1,7 +1,28 @@
 <!--pages/techer/techer.wxml-->
+<wxs src="../../util/format.wxs" module="util" />
+<view wx:if = "{{classes.length >= 1}}">
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
     <text class='cuIcon-titles text-orange '></text> 班级列表
+  </view>
+  <view class='action'>
+  </view>
+</view>
+
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+
+    <view class="cu-item arrow" wx:for = "{{classes}}" wx:key>
+      <navigator class="content" url="../member/member?cid={{item._id}}'" hover-class="none">
+        <text class="cuIcon-formfill text-green"></text>
+        <text class="text-grey">{{item.shool}}{{util.classFmt(item.class,item.enrollmentYear)}}</text>
+      </navigator>
+    </view>
+  </view>
+</view>
+
+<view class="cu-bar bg-white solid-bottom">
+  <view class='action'>
+    <text class='cuIcon-titles text-orange '></text> 新建班级
   </view>
   <view class='action'>
   </view>
@@ -41,9 +62,9 @@
 
     <view class="cu-form-group">
 		<view class="title">班级别名</view>
-		<input placeholder="请输入班级别名（可选）" bindinput='inputClassName'></input>
+		<input placeholder="请输入班级别名（可选）" bindinput='inputClassAlias'></input>
 	</view>
 
-<view class="box cu-bar btn-group la"role=""aria-label="">
+<view class="box cu-bar btn-group ln"role=""aria-label="">
 <button class="cu-btn bg-green shadow-blur round" role="button" bindtap='addClass' aria-disabled="false">新建班级</button>
 </view>

@@ -8,19 +8,31 @@ Page({
     username: '点击头像登陆',
     logged:false,
   },
-
+//初始
   onLoad: function() {
     this.onGetOpenid()
-    this.setData({
-      avatarUrl: this.data.avatarUrl,
-      username: this.data.username,
-      logged:this.data.logged,
+  //查询用户是否存在用户表里
+    db.collection('users').where({
+      _openid: app.globalData.openid
+    }).get().then(res =>{
+      console.log(res.data[0])
+      if (res.data.length == 0){
+        this.data.logged = false
+      }else{
+        this.setData({
+          avatarUrl: res.data[0].avatar,
+          username: res.data[0].nickName,
+          badgeCount: res.data[0].badgeCount,
+          zanCount: res.data[0].zanCount,
+          pointsCount: res.data[0].pointsCount
+        })
+        app.globalData.avatarUrl = res.data[0].avatar
+        app.globalData.nickName = res.data[0].nickName
+      }
     })
-
 
   },
   // 获取用户信息
-
   onGetUserInfo: function(e) {
     console.log(e)
     var userInfo = e.detail.userInfo
@@ -31,26 +43,22 @@ Page({
     })
     app.globalData.avatarUrl = userInfo.avatarUrl
     app.globalData.nickName = userInfo.nickName
-
-      //查询用户是否存在用户表里
-      db.collection('users').where({
-        _openid: app.globalData.openid
-      }).get().then(result => {
-
-        console.log(result.data.length)
         //不存在则添加
-        if (result.data.length == 0) {
-          var user = db.collection('users').add({
+        if (this.data.logged) {
+          db.collection('users').add({
             data: {
-              avatar: res.userInfo.avatarUrl,
-              nickName: res.userInfo.nickName,
-              gender: res.userInfo.gender,
+              //字段还需添加
+              avatar: userInfo.avatarUrl,
+              nickName: userInfo.nickName,
+              gender: userInfo.gender,
+              badgeCount: 1,
+              zanCount: 0,
+              pointsCount: 10
             }
           }).then(add => {
             console.log(add)
           })
         }
-      })
   },
 
   onGetOpenid: function() {
