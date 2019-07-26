@@ -38,7 +38,7 @@
       </navigator>
     </view>
         <view class="cu-item arrow">
-      <navigator class="content" url="../works/works" hover-class="none">
+      <navigator class="content" url="../todo/todo" hover-class="none">
         <text class="cuIcon-writefill text-cyan"></text>
         <text class="text-grey">提交作业</text>
       </navigator>
@@ -68,10 +68,10 @@
     </view>
 
     <view class="cu-item arrow">
-      <button class="cu-btn content" open-type="feedback">
-        <text class="cuIcon-writefill text-cyan"></text>
+      <navigator class="content" url='../class/class?cid=25c59b425d37cc67014042d3044b9de6' hover-class="none">
+        <text class="cuIcon-appreciatefill text-red"></text>
         <text class="text-grey">意见反馈</text>
-      </button>
+      </navigator>
     </view>
   </view>
   <view class="cu-tabbar-height"></view>

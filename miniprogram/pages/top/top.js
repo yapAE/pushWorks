@@ -1,4 +1,5 @@
 // pages/top/top.js
+const app = getApp()
 const db = wx.cloud.database()
 const format = require('../../util/date.js')
 Page({
@@ -9,24 +10,45 @@ Page({
   data: {
     zan: false,
     images: [],
+    TabCur: '',
+    scrollLeft: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    this.getClassList()
+
      db.collection('works').get().then(res =>{
        this.data.images = res.data
        console.log(this.data.images)
 
        this.setData({
-         list: res.data
+         list: res.data,
        })
     })
   },
 
+  //获取班级列表
+  getClassList(){
+    db.collection('members').where({
+      _openid: app.globalData.openid
+    }).field({
+      classId: true,
+      classname: true
+    }).get().then(res => {
+      console.log(res.data)
+    this.setData({
+      classes: res.data,
+      TabCur: res.data[0].classId
+    })
+    })
+  },
+
   isZan(e){
-    this.data.zan
+    this.data.zan = e.detail.value
   },
   //预览作业图片
   previewImage(e) {
@@ -112,6 +134,15 @@ Page({
     }
     this.setData({
       ListTouchDirection: null
+    })
+  },
+
+  //Tab选择效果展示
+  tabSelect(e) {
+    this.data.TabCur = e.currentTarget.dataset.id
+    this.setData({
+      TabCur: e.currentTarget.dataset.id,
+      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
     })
   },
 })

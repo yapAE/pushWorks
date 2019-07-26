@@ -8,15 +8,34 @@ Page({
    */
   data: {
     TabCur: 0, //0代表学生，1代表教师，2代表家长
+    scrollLeft: 0,
+    iconList: [{
+      icon: 'cardboardfill',
+      color: 'red',
+      badge: 120,
+      name: '布置作业'
+    }, {
+      icon: 'recordfill',
+      color: 'orange',
+      badge: 1,
+      name: '录像'
+    }, {
+      icon: 'picfill',
+      color: 'yellow',
+      badge: 0,
+      name: '图像'
+    }],
+    gridCol: 3,
   },
 //Tab选择效果展示
   tabSelect(e) {
     this.data.TabCur = e.currentTarget.dataset.id
-    this.getMembers(e.currentTarget.dataset.id)
     this.setData({
       TabCur: e.currentTarget.dataset.id,
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60
     })
+    this.getMembers(e.currentTarget.dataset.id)
+
   },
 
   //获取成员
@@ -24,6 +43,7 @@ Page({
     db.collection('members').where({
       relationship:num
     }).get().then(res =>{
+      console.log(res.data)
       this.setData({
         list:res.data
       })
@@ -33,7 +53,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMembers(0)
+    this.getMembers('0')
   },
 
   /**

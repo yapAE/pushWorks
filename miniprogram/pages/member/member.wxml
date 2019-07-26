@@ -1,11 +1,18 @@
 <!--pages/member/member.wxml-->
 <wxs src="../../util/format.wxs" module="util" />
 
-<view class="cu-bar bg-white solid-bottom">
-  <view class='action'>
-    <text class='cuIcon-titles text-orange '></text> 班级成员
+    <view class="cu-list grid col-{{gridCol}} {{gridBorder?'':'no-border'}}">
+    <view class="cu-item" wx:for="{{iconList}}" wx:key wx:if="{{index<gridCol*2}}">
+      <view class="cuIcon-{{item.icon}} text-{{item.color}}" >
+        <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+          <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
+        </view>
+      </view>
+      <navigator url= '../assignment/assignment'>
+      <text>{{item.name}}</text>
+      </navigator>    
+    </view>
   </view>
-</view>
 
 
 <scroll-view scroll-x class="bg-green nav text-center">
@@ -22,15 +29,15 @@
 
 <view class="cu-list menu-avatar">
     <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{list}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
-      <view class="cu-avatar round lg" data-src="{{item.images}}" bindtap='previewImage' style="background-image:url({{item.avatarUrl}});"></view>
+      <view class="cu-avatar round lg" style="background-image:url({{item.avatarUrl}});"></view>
       <view class="content">
         <view class="text-grey">{{item.nickName}}</view>
         <view class="text-gray text-sm">
-          <text class="cuIcon-evaluate_fill text-red"></text> {{util.descFmt(item.text)}}</view>
+          <text class="cuIcon-evaluate_fill text-red"></text> {{item.realname}}</view>
       </view>
       <view class="action">
         <view class="text-grey text-xs">{{util.timeFmt(item.today)}}</view>
-        <view class="cu-tag round bg-grey sm">{{item.images.length}}</view>
+        <view class="cu-tag round bg-grey sm">{{item.relationship}}</view>
       </view>
       <view class="move">
         <view class="bg-grey">点赞</view>

@@ -103,9 +103,18 @@ Page({
   },
 
   addClass(e){
+    //表单验证
+    if (this.data.className == '' || this.data.year == '') {
+      wx.showModal({
+        title: '提示',
+        content: '请选择班级信息',
+      })
+      return false
+    }
     wx.showLoading({
       title: '提交中',
     })
+
     db.collection('classes').add({
       data:{
         region: this.data.region,

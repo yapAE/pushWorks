@@ -82,7 +82,7 @@ Page({
     return {
       title: '邀请您加入班级',
       desc: '分享页面的内容',
-      path: '/pages/class/class' // 路径，传递参数到指定页面,路径 /pages开始
+      path: '/pages/class/class?cid=25c59b425d37cc67014042d3044b9de6' // 路径，传递参数到指定页面,路径 /pages开始
     }
   }
 })

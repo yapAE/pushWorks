@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/index/index",   
+    "pages/index/index",
+    "pages/todo/todo",
+    "pages/assignment/assignment",   
     "pages/list/list",
     "pages/works/works",
     "pages/top/top",
