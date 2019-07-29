@@ -3,7 +3,7 @@
 <view wx:if = "{{classes.length >= 1}}">
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
-    <text class='cuIcon-titles text-orange '></text> 班级列表
+    <text class='cuIcon-titles text-orange '></text> 课程列表
   </view>
   <view class='action'>
   </view>
@@ -22,7 +22,7 @@
 
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
-    <text class='cuIcon-titles text-orange '></text> 新建班级
+    <text class='cuIcon-titles text-orange '></text> 新建课程
   </view>
   <view class='action'>
   </view>
