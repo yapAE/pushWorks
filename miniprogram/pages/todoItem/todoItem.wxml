@@ -1,0 +1,32 @@
+<!--pages/todoItem/todoItem.wxml-->
+
+<view class="cu-card dynamic nocard">
+  <view class="cu-item shadow">
+    <view class="cu-list menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url({{work.avatarUrl}});"></view>
+        <view class="content flex-sub">
+          <view>{{work.nickName}}</view>
+          <view class="text-gray text-sm flex justify-between">
+            {{work.time}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="text-content">
+      {{work.content}}
+    </view>
+<swiper indicator-dots="{{indicatorDots}}" class='swiper'
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" >
+  <block wx:for="{{work.images}}" wx:key='*this' >
+    <swiper-item >
+      <image src="{{item}}" class="slide-image" mode="aspectFill" bindtap='previewImage' />
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class="padding flex flex-direction">
+  <button class="cu-btn bg-green lg" disabled= "{{isFnish}}" data-url='{{work._id}}' data-cid='{{work.classId}}' bindtap='toAssignment'>{{isFnish?'作业已提交':'去交作业'}}</button>
+</view>
+    </view>
+ </view>

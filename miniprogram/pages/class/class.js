@@ -10,7 +10,8 @@ Page({
     cid: '',
     openGid: '',
     realname: '',
-    relationship: '0'
+    relationship: '0',
+    isOut: true
   },
 
   /**
@@ -22,6 +23,8 @@ Page({
       withShareTicket: true
     })
     this.getClassInfo(options.cid)
+    this.checkInClass(options.cid)
+
     this.setData({
       cid: options.cid,
     })
@@ -30,13 +33,7 @@ Page({
 
   clickReload: function () {
     let that = this
-    if (!that.checkInClass){
-        wx.showModal({
-          title: '提示',
-          content: '你已经是成员了',
-        })
-        return false
-    }
+    
     wx.showLoading({
       title: '提交中',
     })
@@ -63,12 +60,10 @@ Page({
   },
 //获取班级基本信息
   getClassInfo(cid){
-    db.collection('classes').where({
-      _id: cid
-    }).limit(1).get().then(res =>{
-      console.log(res.data[0])
+    db.collection('classes').doc(cid).get().then(res =>{
+      console.log(res.data)
       this.setData({
-        class: res.data[0]
+        classInfo: res.data
       })
     })
   },
@@ -76,14 +71,21 @@ Page({
   //检查是否加入班级
   checkInClass(cid){
     db.collection('members').where({
-      _openid: app.globalData.openid,
       classId: cid
     }).get().then(res => {
-       if(res.data.length == 0){
-         return  true
-       }else{
-         return  false
-       }
+      console.log(res.data)
+      this.setData({
+        members: res.data
+      })
+      //判断是否加入班级
+      for(let index in res.data){
+        if (res.data[index]._openid == app.globalData.openid) {
+          console.log(app.globalData.openid)
+          console.log(res.data[index]._openid)
+          this.data.isOut = false
+        } 
+      }
+      console.log(this.data.isOut)
     })
   },
   /**
@@ -135,7 +137,7 @@ Page({
     return {
       title: '邀请您加入班级',
       desc:  '分享页面的内容',
-      path:  '/pages/class/class?cid=25c59b425d37cc67014042d3044b9de6' // 路径，传递参数到指定页面,路径 /pages开始
+      path:  '/pages/class/class?cid=' + this.data.cid // 路径，传递参数到指定页面,路径 /pages开始
     }
   },
 //地区选择

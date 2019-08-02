@@ -1,0 +1,4 @@
+/* pages/todoItem/todoItem.wxss */
+.swiper{
+ text-align: center;
+ }

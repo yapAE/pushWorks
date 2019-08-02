@@ -14,6 +14,21 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const todayEndTime = () => {
+  var todayYear = (new Date()).getFullYear();
+  var todayMonth = (new Date()).getMonth();
+  var todayDay = (new Date()).getDate();
+  var todayTime = (new Date(todayYear, todayMonth, todayDay, '23', '59', '59')).getTime();//毫秒
+  return todayTime;
+}
+
+const todayStartTime = () => {
+  const date = new Date();
+  let currentYear = date.getFullYear(), currentMonth = date.getMonth() + 1, currentDay = date.getDate();
+  let currentDateStartTime = currentYear + '/' + formatNumber(currentMonth) + '/' + formatNumber(currentDay) + ' 00:00:00'
+  let unixTime = new Date(currentDateStartTime).getTime()
+  return unixTime
+}
 
 const testDate = dateStr => {
   // date : y-m-d
@@ -60,5 +75,7 @@ module.exports = {
   formatTime: formatTime,
   testDate: testDate,
   typeC: typeC,
-  getTip: getTip
+  getTip: getTip,
+  todayStartTime: todayStartTime,
+  todayEndTime: todayEndTime
 }

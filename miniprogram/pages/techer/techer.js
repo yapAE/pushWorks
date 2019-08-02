@@ -12,7 +12,6 @@ Page({
     classNumber: [],
     className: '',
     year:''
-
   },
 
   /**
@@ -124,6 +123,8 @@ Page({
         classAlisa: this.data.classAlisa
       }
     }).then(re =>{
+      console.log(re)
+      this.joinClass(re._id)
       this.classData()
       wx.hideLoading()
       wx.showToast({
@@ -136,6 +137,20 @@ Page({
     wx.startPullDownRefresh()
    // wx.stopPullDownRefresh()
   },
+  //加入班级
+  joinClass(cid){
+    db.collection('members').add({
+      data: {
+        classId: cid,
+        openGid: '',
+        avatarUrl: app.globalData.avatarUrl,
+        realname: '',
+        relationship: '1'
+      }
+    }).then(res => {
+      console.log(res.data)
+    })
+  },
   //输入学校名
   inputSchoolName(e){
     this.data.schoolName = e.detail.value
@@ -143,7 +158,7 @@ Page({
 
   //输入班级别名
   inputClassAlias(e){
-    this.data.className = e.detail.value
+    this.data.classAlisa = e.detail.value
   },
 
   //地区选择

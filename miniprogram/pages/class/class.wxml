@@ -1,33 +1,26 @@
 <wxs src="../../util/format.wxs" module="util" />
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
-    <text class='cuIcon-titles text-orange '></text> 班级信息
+    <text class='cuIcon-titles text-orange '></text> 班级信息      {{util.classFmt(classInfo.class,classInfo.enrollmentYear)}}
+
   </view>
   <view class='action'>
   </view>
 </view>
 
-<view class="box cu-bar bg-white">
-  <view class="action">
-    <text class="cuIcon-title text-green"></text>
-    <view >
-    {{util.classFmt(class.class,class.enrollmentYear)}}
-  </view>
+
+
+<view class="box">
+
+<view class="padding">
+  <view class="cu-avatar round lg margin-left" wx:for="{{members}}" wx:key style="background-image:url({{item.avatarUrl}});">
   </view>
 </view>
-
-<view class="box cu-bar bg-white">
-  <view class="action">
-    <text class="cuIcon-title text-green"></text>
-    <view wx:if="{{openGid}}" class='groupName'>
-    欢迎加入
-    <open-data type="groupName" open-gid="{{openGid}}"></open-data>
-  </view>
-  </view>
 </view>
 
-<view class="box cu-bar btn-group"role=""aria-label="">
-<button class="cu-btn bg-green shadow-blur round"role="button" bindtap='clickReload'aria-disabled="false">加入班级</button>
 
-<button class="cu-btn bg-blue shadow-blur round"role="button" aria-disabled="false" open-type='share'>邀请同学</button>
+<view class="padding flex flex-direction">
+  <button class="cu-btn bg-green lg" disabled= "{{!isOut}}" bindtap='clickReload'>{{isOut?'接受邀请':'你已加入'}}</button>
 </view>
+
+

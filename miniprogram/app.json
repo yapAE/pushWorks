@@ -2,16 +2,14 @@
   "pages": [
     "pages/index/index",
     "pages/todo/todo",
+    "pages/todoItem/todoItem",
     "pages/assignment/assignment",   
     "pages/list/list",
     "pages/works/works",
     "pages/top/top",
     "pages/class/class",
     "pages/member/member",
-    "pages/techer/techer",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/openapi/openapi"
+    "pages/techer/techer"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -20,5 +18,19 @@
     "navigationBarTitleText": "作业提交助手",
     "navigationBarTextStyle": "black"
   },
+    "tabBar": {
+      "list": [
+        {
+          "pagePath": "pages/todo/todo",
+          "iconPath": "images/work-0.png", 
+          "selectedIconPath": "images/work-1.png"                
+        },
+        {
+          "pagePath": "pages/index/index",
+          "iconPath": "images/me-0.png",
+          "selectedIconPath": "images/me-1.png"
+        }
+      ]
+    },
   "sitemapLocation": "sitemap.json"
 }

@@ -12,9 +12,9 @@
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
 
     <view class="cu-item arrow" wx:for = "{{classes}}" wx:key>
-      <navigator class="content" url="../member/member?cid={{item._id}}'" hover-class="none">
+      <navigator class="content" url="../member/member?cid={{item._id}}" hover-class="none">
         <text class="cuIcon-formfill text-green"></text>
-        <text class="text-grey">{{item.shool}}{{util.classFmt(item.class,item.enrollmentYear)}}</text>
+        <text class="text-grey">{{item.shool}}{{util.classFmt(item.class,item.enrollmentYear)}}{{item.classAlisa}}</text>
       </navigator>
     </view>
   </view>
@@ -61,10 +61,10 @@
 	</view>
 
     <view class="cu-form-group">
-		<view class="title">班级别名</view>
-		<input placeholder="请输入班级别名（可选）" bindinput='inputClassAlias'></input>
+		<view class="title">课程名称</view>
+		<input placeholder="请输入课程名" bindinput='inputClassAlias'></input>
 	</view>
 
 <view class="box cu-bar btn-group ln"role=""aria-label="">
-<button class="cu-btn bg-green shadow-blur round" role="button" bindtap='addClass' aria-disabled="false">新建班级</button>
+<button class="cu-btn bg-green shadow-blur round" role="button" bindtap='addClass' aria-disabled="false">新建课程</button>
 </view>

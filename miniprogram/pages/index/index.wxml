@@ -38,7 +38,7 @@
       </navigator>
     </view>
         <view class="cu-item arrow">
-      <navigator class="content" url="../todo/todo" hover-class="none">
+      <navigator class="content" url="../class/class?cid=890198e15d4416bd09623bfb27ef6975" hover-class="none">
         <text class="cuIcon-writefill text-cyan"></text>
         <text class="text-grey">提交作业</text>
       </navigator>

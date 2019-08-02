@@ -7,25 +7,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-    TabCur: 0, //0代表学生，1代表教师，2代表家长
+    TabCur: '0', //0代表学生，1代表教师，2代表家长
     scrollLeft: 0,
     iconList: [{
       icon: 'cardboardfill',
       color: 'red',
       badge: 120,
-      name: '布置作业'
+      name: '布置作业',
+      url: "../assignment/assignment?cid="
     }, {
       icon: 'recordfill',
       color: 'orange',
       badge: 1,
-      name: '录像'
+      name: '检查作业',
+      url: "../assignment/assignment?cid="
+
     }, {
       icon: 'picfill',
       color: 'yellow',
       badge: 0,
-      name: '图像'
+      name: '邀请同学',
+      url: 'botton'
     }],
     gridCol: 3,
+    classId: ''
   },
 //Tab选择效果展示
   tabSelect(e) {
@@ -36,11 +41,18 @@ Page({
     })
     this.getMembers(e.currentTarget.dataset.id)
 
+    wx.showShareMenu({
+      //设为true，获取ShareTicket
+      withShareTicket: true
+    })
   },
 
   //获取成员
   getMembers(num){
+    console.log(this.data.classId)
+    console.log(num)
     db.collection('members').where({
+      classId: this.data.classId,
       relationship:num
     }).get().then(res =>{
       console.log(res.data)
@@ -53,7 +65,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMembers('0')
+   // this.data.classId = options.cid
+
+   this.setData({
+     classId: options.cid
+   })
+
+    this.getMembers(this.data.TabCur)
+
+    console.log(this.data.classId)
   },
 
   /**
@@ -99,9 +119,13 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
-   */
+     * 用户点击右上角分享
+     */
   onShareAppMessage: function () {
-
+    return {
+      title: '邀请您加入班级',
+      desc: '分享页面的内容',
+      path: '/pages/class/class?cid=' + this.data.classId// 路径，传递参数到指定页面,路径 
+    }
   }
 })
