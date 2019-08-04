@@ -18,9 +18,17 @@
 </view>
 </view>
 
+<view class="cu-form-group">
+		<view class="title">学生姓名</view>
+		<input placeholder="请输入姓名" bindinput='inputYourName'></input>
+	</view>
+
 
 <view class="padding flex flex-direction">
-  <button class="cu-btn bg-green lg" disabled= "{{!isOut}}" bindtap='clickReload'>{{isOut?'接受邀请':'你已加入'}}</button>
+  <button class="cu-btn bg-green lg" 
+  disabled= "{{(!isOut)}}"
+  open-type="getUserInfo" 
+  bindgetuserinfo="clickReload">{{isOut?'接受邀请加入':'你已加入'}}</button>
 </view>
 
 

@@ -1,6 +1,7 @@
 // pages/class/class.js
 const app = getApp()
 const db = wx.cloud.database()
+const login = require('../../util/login.js')
 Page({
 
   /**
@@ -11,7 +12,8 @@ Page({
     openGid: '',
     realname: '',
     relationship: '0',
-    isOut: true
+    isOut: true,
+    logged: false
   },
 
   /**
@@ -22,6 +24,7 @@ Page({
       //设为true，获取ShareTicket
       withShareTicket: true
     })
+    login.onGetOpenid()
     this.getClassInfo(options.cid)
     this.checkInClass(options.cid)
 
@@ -29,33 +32,80 @@ Page({
       cid: options.cid,
     })
     console.log(this.data.cid)    
+    console.log(app.globalData.openid) 
+    //检测用户是否存在
+    //查询用户是否存在用户表里
+    db.collection('users').where({
+      _openid: app.globalData.openid
+    }).get().then(res => {
+      console.log(res.data[0])
+      if (res.data.length == 0) {
+        this.data.logged = false
+      } else {
+        this.data.logged = true
+        app.globalData.avatarUrl = res.data[0].avatar
+        app.globalData.nickName = res.data[0].nickName
+      }
+    })   
   },
 
-  clickReload: function () {
+  clickReload: function (e) {
     let that = this
-    
+    this.onGetUserInfo(e)
+
     wx.showLoading({
       title: '提交中',
     })
-    app.getShareTiket(function (globalData) {
-      console.log('clickReload---globalData-->' + JSON.stringify(globalData))
+
       //添加成员到班级
       db.collection('members').add({
         data:{
           classId: that.data.cid,
-          openGid: globalData.openGid,
-          avatarUrl: '',
+          avatarUrl: app.globalData.avatarUrl,
           realname: that.data.realname,
           relationship: that.data.relationship
         }
       }).then(res =>{
+        this.setData({
+          isOut: false
+        })
+        wx.hideLoading()
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
         wx.showToast({
           title: '提交成功',
         })
+
       })
-      that.setData({
-        openGid: globalData.openGid
+
+  },
+  //获取用户信息
+   onGetUserInfo (e) {
+    var userInfo = e.detail.userInfo
+    app.globalData.avatarUrl = userInfo.avatarUrl
+    app.globalData.nickName = userInfo.nickName
+    //不存在则添加
+    if (!this.data.logged) {
+      db.collection('users').add({
+        data: {
+          //字段还需添加
+          avatar: userInfo.avatarUrl,
+          nickName: userInfo.nickName,
+          gender: userInfo.gender,
+          badgeCount: 1,
+          zanCount: 0,
+          pointsCount: 10
+        }
+      }).then(add => {
+        console.log(add)
       })
+    }
+  },
+  //输入姓名
+  inputYourName(e){
+    this.setData({
+      realname: e.detail.value
     })
   },
 //获取班级基本信息
@@ -82,7 +132,9 @@ Page({
         if (res.data[index]._openid == app.globalData.openid) {
           console.log(app.globalData.openid)
           console.log(res.data[index]._openid)
-          this.data.isOut = false
+          this.setData({
+            isOut: false
+          })
         } 
       }
       console.log(this.data.isOut)

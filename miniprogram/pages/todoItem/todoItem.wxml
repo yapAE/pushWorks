@@ -30,3 +30,22 @@
 </view>
     </view>
  </view>
+
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+
+    <view class="cu-item arrow">
+      <button class="cu-btn content" open-type="share">
+        <text class="cuIcon-creativefill text-orange"></text>
+        <text class="text-grey">邀请同学</text>
+      </button>
+    </view>
+
+    <view class="cu-item arrow">
+      <navigator class="content" url='../top/top?cid={{classId}}' hover-class="none">
+        <text class="cuIcon-appreciatefill text-red"></text>
+        <text class="text-grey">今日最佳</text>
+      </navigator>
+    </view>
+
+  </view>
+ 

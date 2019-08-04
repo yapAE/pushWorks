@@ -4,7 +4,6 @@ const db = wx.cloud.database()
 const _ = db.command
 const util = require('../../util/date.js')
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -32,6 +31,7 @@ Page({
       this.isFnish(res.data.classId)
 
       this.setData({
+        classId:res.data.classId,
         work: res.data,
         isCard: true,
         images:res.data.images,
@@ -82,13 +82,6 @@ Page({
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
   isFnish(classId){
     console.log(app.globalData.openid)
     console.log(this.data.classId)
@@ -123,5 +116,15 @@ Page({
     wx.navigateTo({
       url: '/pages/assignment/assignment?pid=' + e.currentTarget.dataset.url + '&cid=' + e.currentTarget.dataset.cid,
     })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '邀请您加入班级',
+      desc: '分享页面的内容',
+      path: '/pages/class/class?cid=' + this.data.classId// 路径，传递参数到指定页面,路径 
+    }
   }
 })

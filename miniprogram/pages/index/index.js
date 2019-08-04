@@ -20,6 +20,7 @@ Page({
         this.data.logged = false
       }else{
         this.setData({
+          logged: true,
           avatarUrl: res.data[0].avatar,
           username: res.data[0].nickName,
           badgeCount: res.data[0].badgeCount,
