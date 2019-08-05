@@ -1,7 +1,8 @@
 // pages/top/top.js
 const app = getApp()
 const db = wx.cloud.database()
-const format = require('../../util/date.js')
+const _ = db.command
+const util = require('../../util/date.js')
 Page({
 
   /**
@@ -10,43 +11,30 @@ Page({
   data: {
     zan: false,
     images: [],
-    TabCur: '',
-    scrollLeft: 0
+    cid: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    this.getClassList()
-
-     db.collection('works').get().then(res =>{
-       this.data.images = res.data
-       console.log(this.data.images)
-
-       this.setData({
-         list: res.data,
-       })
-    })
+    this.getTop(options.pid)
   },
-
-  //获取班级列表
-  getClassList(){
-    db.collection('members').where({
-      _openid: app.globalData.openid
-    }).field({
-      classId: true,
-      classname: true
+//top
+  getTop(pid){
+    console.log(pid)
+    db.collection('works').where({
+      parentId: pid,
+      time: _.gt(util.todayStartTime()).and(_.lte(util.todayEndTime()))
     }).get().then(res => {
-      console.log(res.data)
-    this.setData({
-      classes: res.data,
-      TabCur: res.data[0].classId
-    })
+      this.data.images = res.data
+      console.log(this.data.images)
+
+      this.setData({
+        list: res.data,
+      })
     })
   },
-
   isZan(e){
     this.data.zan = e.detail.value
   },
@@ -136,13 +124,16 @@ Page({
       ListTouchDirection: null
     })
   },
-
-  //Tab选择效果展示
-  tabSelect(e) {
-    this.data.TabCur = e.currentTarget.dataset.id
-    this.setData({
-      TabCur: e.currentTarget.dataset.id,
-      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
+  //setZan 点赞
+  setZan (e) {
+    console.log(e)
+    db.collection('works').doc(e.currentTarget.dataset.wid).update({
+      data:{
+        zan: +1
+      }
+    }).then(res =>{
+      console.log(res)
     })
-  },
+  }
+
 })

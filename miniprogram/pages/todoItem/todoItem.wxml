@@ -1,4 +1,5 @@
 <!--pages/todoItem/todoItem.wxml-->
+<wxs src="../../util/format.wxs" module="util" />
 
 <view class="cu-card dynamic nocard">
   <view class="cu-item shadow">
@@ -8,7 +9,7 @@
         <view class="content flex-sub">
           <view>{{work.nickName}}</view>
           <view class="text-gray text-sm flex justify-between">
-            {{work.time}}
+            {{util.timeFmt(work.time)}}
           </view>
         </view>
       </view>
@@ -41,7 +42,7 @@
     </view>
 
     <view class="cu-item arrow">
-      <navigator class="content" url='../top/top?cid={{classId}}' hover-class="none">
+      <navigator class="content" url='../top/top?pid={{work._id}}' hover-class="none">
         <text class="cuIcon-appreciatefill text-red"></text>
         <text class="text-grey">今日最佳</text>
       </navigator>

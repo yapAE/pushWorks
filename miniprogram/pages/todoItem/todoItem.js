@@ -27,7 +27,7 @@ Page({
 //获取作业详情
   getWork(wid){
     db.collection('works').doc(wid).get().then(res =>{
-      console.log(res.data.classId)
+      console.log(res.data)
       this.isFnish(res.data.classId)
 
       this.setData({

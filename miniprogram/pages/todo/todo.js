@@ -17,6 +17,9 @@ Page({
    */
   onLoad: function (options) {
      this.getClassIds()
+    wx.setNavigationBarTitle({
+      title: '今日任务列表'
+    })
   },
 
   /**

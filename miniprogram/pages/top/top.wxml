@@ -1,12 +1,6 @@
 <!--pages/top/top.wxml-->
 <wxs src="../../util/format.wxs" module="util" />
 
-<scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
-  <view class="cu-item {{item.classId==TabCur?'text-green cur':''}}" wx:for="{{classes}}" wx:key bindtap="tabSelect" data-id="{{item.classId}}">
-    {{item.classId}}
-  </view>
-</scroll-view>
-
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
     <text class='cuIcon-titles text-orange '></text> {{zan?'获赞最多':'最早提交'}}
@@ -22,15 +16,15 @@
       <view class="content">
         <view class="text-grey">{{item.nickName}}</view>
         <view class="text-gray text-sm">
-          <text class="cuIcon-evaluate_fill text-red"></text> {{util.descFmt(item.text)}}</view>
+          <text class="cuIcon-evaluate_fill text-red"></text> {{util.descFmt(item.content)}}</view>
       </view>
       <view class="action">
-        <view class="text-grey text-xs">{{util.timeFmt(item.today)}}</view>
+        <view class="text-grey text-xs">{{util.timeFmt(item.time)}}</view>
         <view class="cu-tag round bg-grey sm">{{item.images.length}}</view>
       </view>
       <view class="move">
-        <view class="bg-grey">点赞</view>
-        <view class="bg-red">优秀</view>
+        <view class="bg-grey" bindtap="setZan" data-wid="{{item._id}}">点赞</view>
+        <view class="bg-red" bindtap="setBest">优秀</view>
       </view>
     </view>
   </view>

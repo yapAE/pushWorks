@@ -29,35 +29,12 @@
     </view>
   </view>
 
-  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
     <view class="cu-item arrow">
       <navigator class="content" url="../list/list" hover-class="none">
         <text class="cuIcon-formfill text-green"></text>
         <text class="text-grey">我的作业</text>
       </navigator>
-    </view>
-        <view class="cu-item arrow">
-      <navigator class="content" url="../class/class?cid=890198e15d4416bd09623bfb27ef6975" hover-class="none">
-        <text class="cuIcon-writefill text-cyan"></text>
-        <text class="text-grey">提交作业</text>
-      </navigator>
-    </view>
-    <view class="cu-item arrow">
-      <navigator class="content" url='../top/top' hover-class="none">
-        <text class="cuIcon-appreciatefill text-red"></text>
-        <text class="text-grey">今日最佳</text>
-      </navigator>
-    </view>
-  </view>
-
-    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-
-    <view class="cu-item arrow">
-      <button class="cu-btn content" open-type="share">
-        <text class="cuIcon-creativefill text-orange"></text>
-        <text class="text-grey">邀请同学</text>
-      </button>
     </view>
 
     <view class="cu-item arrow">
@@ -67,12 +44,6 @@
       </navigator>
     </view>
 
-    <view class="cu-item arrow">
-      <navigator class="content" url='../class/class?cid=25c59b425d37cc67014042d3044b9de6' hover-class="none">
-        <text class="cuIcon-appreciatefill text-red"></text>
-        <text class="text-grey">意见反馈</text>
-      </navigator>
-    </view>
   </view>
   <view class="cu-tabbar-height"></view>
 </scroll-view>
