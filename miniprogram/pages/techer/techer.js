@@ -1,6 +1,7 @@
 // pages/techer/techer.js
 const db = wx.cloud.database()
 const app = getApp()
+const util = require('../../util/curd.js')
 Page({
 
   /**
@@ -43,7 +44,7 @@ Page({
 //获取班级数据
   classData(){
     db.collection('classes').where({
-      _openid: app.globalData._openid
+      _openid: app.globalData.openid
     }).get().then(res => {
       console.log(res.data)
       this.setData({
@@ -110,6 +111,7 @@ Page({
       })
       return false
     }
+    console.log(e)
     wx.showLoading({
       title: '提交中',
     })
@@ -126,6 +128,8 @@ Page({
       console.log(re)
       this.joinClass(re._id)
       this.classData()
+      //发个模版消息
+      this.sendMsg(e)
       wx.hideLoading()
       wx.showToast({
         title: '提交成功',
@@ -181,6 +185,20 @@ Page({
     this.setData({
       yearIndex: e.detail.value
     })
-  }
+  },
+
+  //发送模版消息
+  sendMsg(e){
+    wx.cloud.callFunction({
+      name:'message-send',
+      data:{
+        formId: e.detail.formId 
+      }
+    }).then(res => {
+      console.log(res)
+    }).then(error =>{
+      console.log(error)
+    })
+  } 
 
 })

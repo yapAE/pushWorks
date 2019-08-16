@@ -64,7 +64,8 @@
 		<view class="title">课程名称</view>
 		<input placeholder="请输入课程名" bindinput='inputClassAlias'></input>
 	</view>
-
+<form class='form-abc' bindsubmit='addClass' report-submit>
 <view class="box cu-bar btn-group ln"role=""aria-label="">
-<button class="cu-btn bg-green shadow-blur round" role="button" bindtap='addClass' aria-disabled="false">新建课程</button>
+<button class="cu-btn bg-green shadow-blur round" role="button" form-type='submit' aria-disabled="false">新建课程</button>
 </view>
+</form>
